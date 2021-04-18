@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-// const Projection = require('../utils/projection')
+const Projection = require('../utils/projection');
 const EventServices = require('../services/eventService');
 const EventController = require('../controllers/eventController');
-const EventInstance = new EventController(new EventServices());
+const EventInstance = new EventController(new EventServices(new Projection()));
 
 router.get('/event', (req, res) => {
 	EventInstance.getEvent(req, res);

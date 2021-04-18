@@ -2,7 +2,6 @@ class EventController {
 	constructor(eventServices) {
 		this.eventServices = eventServices;
 	}
-	//get eventos a partir de un cart
 	async getEvent(req, res) {
 		try {
 			const { clientId } = req.query;

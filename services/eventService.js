@@ -1,6 +1,9 @@
 const Events = require('../models/eventModel');
-
 class EventServices {
+	constructor(projection) {
+		this.projection = projection;
+	}
+
 	getEvent(clientId) {
 		let query;
 		if (clientId) {
@@ -10,43 +13,18 @@ class EventServices {
 		}
 		return query;
 	}
+
 	postEvent(event) {
 		const newEvent = new Events(event);
 		return newEvent.save();
 	}
 
 	async getCartProjection(id) {
+		//Event.find retorna una promise
 		const events = await Events.find({ clientId: id }).exec();
-		const projection = project(events);
+		const projection = this.projection.project(events);
 		return projection;
 	}
 }
 
-function project(events) {
-	const projection = events.reduce(applyEventToCart, { items: {} });
-	return projection;
-}
-
-function applyEventToCart(cart, event) {
-	event.type === 'add' ? addEvent(cart, event) : removeEvent(cart, event);
-	return cart;
-}
-
-function addEvent(cart, event) {
-	if (cart.items[event.item]) {
-		cart.items[event.item].qty++;
-	} else {
-		cart.items[event.item] = {
-			qty: 1,
-		};
-	}
-}
-
-function removeEvent(cart, event) {
-	if (cart.items?.[event.item].qty == 1) {
-		delete cart.items[event.item];
-	} else if (cart.items[event.item].qty > 1) {
-		cart.items[event.item].qty--;
-	}
-}
 module.exports = EventServices;
