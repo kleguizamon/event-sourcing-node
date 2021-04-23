@@ -7,7 +7,7 @@ class EventServices {
 	getEvent(clientId) {
 		let query;
 		if (clientId) {
-			query = Events.findOne({ clientId: clientId }).exec();
+			query = Events.find({ clientId: clientId }).exec();
 		} else {
 			query = Events.find().exec();
 		}
