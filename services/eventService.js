@@ -7,7 +7,7 @@ class EventServices {
 	getEvent(clientId) {
 		let query;
 		if (clientId) {
-			query = Events.find({ clientId: clientId }).exec();
+			query = Events.findOne({ clientId: clientId }).exec();
 		} else {
 			query = Events.find().exec();
 		}
@@ -20,7 +20,6 @@ class EventServices {
 	}
 
 	async getCartProjection(id) {
-		//Event.find retorna una promise
 		const events = await Events.find({ clientId: id }).exec();
 		const projection = this.projection.project(events);
 		return projection;

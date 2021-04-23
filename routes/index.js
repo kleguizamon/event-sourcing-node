@@ -9,7 +9,7 @@ router.get('/event', (req, res) => {
 	EventInstance.getEvent(req, res);
 });
 router.get('/cart/:id', (req, res) => {
-	EventInstance.getCartById(req, res);
+	EventInstance.getCartProjection(req, res);
 });
 router.post('/event', (req, res) => {
 	EventInstance.postEvent(req, res);

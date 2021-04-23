@@ -12,9 +12,9 @@ class EventController {
 		}
 	}
 
-	async getCartById(req, res) {
+	async getCartProjection(req, res) {
 		try {
-			const id = req.params.id;
+			const { id } = req.params;
 			const event = await this.eventServices.getCartProjection(id);
 			res.status(200).json(event);
 		} catch (error) {
